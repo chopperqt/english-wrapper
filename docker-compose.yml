@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  proxy:
+    build:
+      context: nginx/
+    ports:
+      - "3003:3003"
+    network_mode: bridge
+    environment:
+      NGINX_PORT: 3003
+      NGINX_HOST: http://${DOCKER_GATEWAY_HOST:-host.docker.internal}

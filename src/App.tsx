@@ -6,6 +6,7 @@ import { EnglishRepeater } from "./components/english-repeater";
 import { Routes } from "./routes";
 import { useEffect, useState } from "react";
 import { ParamsController } from "./helpers/paramsController";
+import SignIn from "./pages/login";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -63,6 +64,7 @@ function App() {
     <div className="App flex h-screen">
       <AppMenu />
       <AppRoutes>
+        <Route path="/" element={<SignIn />} />
         <Route path={Routes.repeater} element={<EnglishRepeater />} />
         <Route path={Routes.library} element={<EnglishLibrary />} />
       </AppRoutes>

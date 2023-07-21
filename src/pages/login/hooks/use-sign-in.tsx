@@ -1,8 +1,8 @@
-import { login } from "../../api/auth.api";
-
-import { FormInstance } from "antd";
-// import { useMessage } from "helpers/useMessage";
 import { useState } from "react";
+import { FormInstance } from "antd";
+
+import { login } from "../../../api/auth.api";
+import { useMessage } from "../../../utils/use-message";
 
 const SUCCESS_TEXT = "Logged success.";
 

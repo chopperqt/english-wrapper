@@ -3,6 +3,9 @@ import { FormInstance } from "antd";
 
 import { login } from "../../../api/auth.api";
 import { useMessage } from "../../../utils/use-message";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../stores/store";
+import { setAuth } from "../../../stores/user.slice";
 
 const SUCCESS_TEXT = "Logged success.";
 
@@ -16,6 +19,10 @@ interface LoginForm {
 }
 
 export const useSignIn = ({ form }: UseSignInProps) => {
+  const dispatch = useDispatch();
+
+  const { isAuth } = useSelector((state: RootState) => state.user);
+
   const { contextHolder, handleShowSuccess } = useMessage();
 
   const [isDisabled, setDisabled] = useState(false);
@@ -41,6 +48,8 @@ export const useSignIn = ({ form }: UseSignInProps) => {
 
     setDisabled(true);
     handleShowSuccess(SUCCESS_TEXT);
+
+    dispatch(setAuth(true));
   };
 
   return {

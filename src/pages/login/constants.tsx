@@ -54,5 +54,5 @@ export const FormFields: FormFieldsProps = {
 
 export const SIGN_IN_TEXT = "Sign in";
 export const LOGIN_TEXT = "Login";
-export const LINK_TEXT = "Haven`t registered yet?";
+export const LINK_TEXT = "Don't have an account yet?";
 export const LINE_STYLES = "h-1 bg-black w-full rounded-md opacity-10";

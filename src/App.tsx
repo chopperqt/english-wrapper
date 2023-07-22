@@ -6,6 +6,10 @@ import { getRoutes } from "./routes";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { ParamsController } from "./helpers/paramsController";
 import supabase from "./api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./stores/store";
+import { setAuth } from "./stores/user.slice";
+import { logout } from "./api/auth.api";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -19,10 +23,12 @@ interface BroadcastObject {
 }
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
 
+  const { isAuth } = useSelector((state: RootState) => state.user);
+
   const [isFetched, setFetched] = useState(false);
-  const [isAuth, setAuth] = useState(false);
 
   const routes = getRoutes(isAuth);
 
@@ -32,7 +38,7 @@ function App() {
     } = await supabase.auth.getUser();
 
     if (user?.id) {
-      setAuth(true);
+      dispatch(setAuth(true));
     }
 
     setFetched(true);

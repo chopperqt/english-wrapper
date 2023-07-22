@@ -82,7 +82,7 @@ function App() {
   if (!isFetched) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
-        <Spin size="large" tip="Loading" />
+        <Spin size="large" tip="Welcome" />
       </div>
     );
   }

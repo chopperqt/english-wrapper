@@ -1,3 +1,5 @@
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+
 export const Fields = {
   login: "login",
   password: "password",
@@ -10,6 +12,7 @@ type FormFieldsProps = Record<Field, { item: any; input: any }>;
 export const FormFields: FormFieldsProps = {
   login: {
     item: {
+      label: "Login",
       name: Fields.login,
       rules: [
         {
@@ -23,11 +26,13 @@ export const FormFields: FormFieldsProps = {
       ],
     },
     input: {
-      placeholder: "Login",
+      prefix: <UserOutlined />,
+      placeholder: "Type your login",
     },
   },
   password: {
     item: {
+      label: "Password",
       name: Fields.password,
       rules: [
         {
@@ -41,7 +46,8 @@ export const FormFields: FormFieldsProps = {
       ],
     },
     input: {
-      placeholder: "Password",
+      placeholder: "Type your password",
+      prefix: <LockOutlined />,
     },
   },
 };

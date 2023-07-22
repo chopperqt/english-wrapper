@@ -5,7 +5,7 @@ import { FormFields, SIGN_IN_TEXT, LOGIN_TEXT, LINE_STYLES } from "./constants";
 
 const { Text } = Typography;
 
-const SignIn = () => {
+const Login = () => {
   const [form] = Form.useForm();
 
   const { handleSubmit, contextHolder, isDisabled } = useSignIn({
@@ -46,4 +46,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;

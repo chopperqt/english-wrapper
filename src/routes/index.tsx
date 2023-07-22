@@ -1,37 +1,59 @@
 import { Navigate } from "react-router-dom";
 import { EnglishLibrary } from "../components/english-library";
 import { EnglishRepeater } from "../components/english-repeater";
-import SignIn from "../pages/login";
+
+import Home from "../pages/home";
+import Login from "../pages/login";
 
 export const PathRoutes = {
   home: "/",
+  login: "/login",
   library: "/app-library",
   repeater: "/app-repeater",
 };
 
-export const Routes = [
+export const PrivateRoutes = [
   {
     path: PathRoutes.home,
-    element: <SignIn />,
-    isAuth: false,
+    element: <Home />,
   },
   {
-    path: PathRoutes.home,
+    path: PathRoutes.login,
     element: <Navigate to={PathRoutes.library} />,
-    isAuth: true,
   },
   {
     path: PathRoutes.repeater,
     element: <EnglishRepeater />,
-    isAuth: true,
   },
   {
     path: PathRoutes.library,
     element: <EnglishLibrary />,
-    isAuth: true,
   },
 ];
 
-export const getAuthRoutes = (isAuth = false) => {
-  return Routes.filter((item) => item.isAuth === isAuth);
+export const PublicRoutes = [
+  {
+    path: PathRoutes.home,
+    element: <Home />,
+  },
+  {
+    path: PathRoutes.login,
+    element: <Login />,
+  },
+  {
+    path: PathRoutes.repeater,
+    element: <Navigate to={PathRoutes.home} />,
+  },
+  {
+    path: PathRoutes.library,
+    element: <Navigate to={PathRoutes.home} />,
+  },
+];
+
+export const getRoutes = (isAuth = false) => {
+  if (isAuth) {
+    return PrivateRoutes;
+  }
+
+  return PublicRoutes;
 };

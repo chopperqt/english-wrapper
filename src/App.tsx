@@ -1,7 +1,8 @@
 import { Routes as AppRoutes, Route, useLocation } from "react-router-dom";
+import { Spin } from "antd";
 import { AppMenu } from "./components/menu";
 
-import { getAuthRoutes, Routes } from "./routes";
+import { getRoutes } from "./routes";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { ParamsController } from "./helpers/paramsController";
 import supabase from "./api";
@@ -23,7 +24,7 @@ function App() {
   const [isFetched, setFetched] = useState(false);
   const [isAuth, setAuth] = useState(false);
 
-  const routes = getAuthRoutes(isAuth);
+  const routes = getRoutes(isAuth);
 
   const handleCheckUser = async () => {
     const {
@@ -78,15 +79,12 @@ function App() {
     setSearch(broadcastState.search);
   }, [broadcastState.search]);
 
-  const handleGetUSer = async () => {
-    console.log(await supabase.auth.getUser());
-    console.log(await supabase.auth.getSession());
-  };
-
-  handleGetUSer();
-
   if (!isFetched) {
-    return null;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Spin size="large" tip="Loading" />
+      </div>
+    );
   }
 
   return (
@@ -94,7 +92,6 @@ function App() {
       {isAuth && <AppMenu />}
       <AppRoutes>
         {routes.map(({ path, element }, index) => {
-          console.log(path);
           return <Route key={index} path={path} element={element} />;
         })}
       </AppRoutes>

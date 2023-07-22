@@ -40,3 +40,7 @@ export const login = async ({
     avatarUrl: user_metadata?.avatar_url || "",
   };
 };
+
+export const logout = async () => {
+  await supabase.auth.signOut();
+};

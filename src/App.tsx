@@ -1,12 +1,10 @@
 import { Routes as AppRoutes, Route, useLocation } from "react-router-dom";
 import { AppMenu } from "./components/menu";
 
-import { EnglishLibrary } from "./components/english-library";
-import { EnglishRepeater } from "./components/english-repeater";
-import { Routes } from "./routes";
-import { useEffect, useState } from "react";
+import { getAuthRoutes, Routes } from "./routes";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { ParamsController } from "./helpers/paramsController";
-import SignIn from "./pages/login";
+import supabase from "./api";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -22,7 +20,27 @@ interface BroadcastObject {
 function App() {
   const location = useLocation();
 
+  const [isFetched, setFetched] = useState(false);
+  const [isAuth, setAuth] = useState(false);
+
+  const routes = getAuthRoutes(isAuth);
+
+  const handleCheckUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user?.id) {
+      setAuth(true);
+    }
+
+    setFetched(true);
+  };
   const { setSearch } = ParamsController();
+
+  useLayoutEffect(() => {
+    handleCheckUser();
+  });
 
   const [broadcastState, setBroadcastState] = useState<BroadcastObject>({
     isConnected: false,
@@ -60,13 +78,25 @@ function App() {
     setSearch(broadcastState.search);
   }, [broadcastState.search]);
 
+  const handleGetUSer = async () => {
+    console.log(await supabase.auth.getUser());
+    console.log(await supabase.auth.getSession());
+  };
+
+  handleGetUSer();
+
+  if (!isFetched) {
+    return null;
+  }
+
   return (
     <div className="App flex h-screen">
-      <AppMenu />
+      {isAuth && <AppMenu />}
       <AppRoutes>
-        <Route path="/" element={<SignIn />} />
-        <Route path={Routes.repeater} element={<EnglishRepeater />} />
-        <Route path={Routes.library} element={<EnglishLibrary />} />
+        {routes.map(({ path, element }, index) => {
+          console.log(path);
+          return <Route key={index} path={path} element={element} />;
+        })}
       </AppRoutes>
     </div>
   );

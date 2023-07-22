@@ -1,15 +1,15 @@
 import { BookOutlined, RedoOutlined } from "@ant-design/icons";
 
-import { Routes } from "../../routes";
+import { PathRoutes } from "../../routes";
 
 export const MenuItems = [
   {
-    key: Routes.library,
+    key: PathRoutes.library,
     label: "Library",
     icon: <BookOutlined />,
   },
   {
-    key: Routes.repeater,
+    key: PathRoutes.repeater,
     label: "Repeater",
     icon: <RedoOutlined />,
   },

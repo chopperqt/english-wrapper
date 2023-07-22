@@ -5,11 +5,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface UserState {
   id: string;
   isAuth: boolean;
+  isFetched: boolean;
 }
 
 const initialState: UserState = {
   id: "",
   isAuth: false,
+  isFetched: false,
 };
 
 export const userSlice = createSlice({
@@ -22,9 +24,12 @@ export const userSlice = createSlice({
     setAuth: (state, actions: PayloadAction<boolean>) => {
       state.isAuth = actions.payload;
     },
+    setFetched: (state, actions: PayloadAction<boolean>) => {
+      state.isFetched = actions.payload;
+    },
   },
 });
 
-export const { setId, setAuth } = userSlice.actions;
+export const { setId, setAuth, setFetched } = userSlice.actions;
 
 export default userSlice.reducer;

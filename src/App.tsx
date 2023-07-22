@@ -1,15 +1,14 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes as AppRoutes, Route, useLocation } from "react-router-dom";
 import { Spin } from "antd";
-import { AppMenu } from "./components/menu";
 
-import { getRoutes } from "./routes";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { ParamsController } from "./helpers/paramsController";
 import supabase from "./api";
-import { useDispatch, useSelector } from "react-redux";
+import { AppMenu } from "./components/menu";
+import { getRoutes } from "./routes";
+import { ParamsController } from "./helpers/paramsController";
 import { RootState } from "./stores/store";
-import { setAuth } from "./stores/user.slice";
-import { logout } from "./api/auth.api";
+import { setAuth, setFetched } from "./stores/user.slice";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -20,34 +19,32 @@ const broadcast = new BroadcastChannel(KEY);
 interface BroadcastObject {
   isConnected: boolean;
   search?: string;
+  token?: string;
 }
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { isAuth } = useSelector((state: RootState) => state.user);
-
-  const [isFetched, setFetched] = useState(false);
+  const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
 
   const routes = getRoutes(isAuth);
 
   const handleCheckUser = async () => {
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
+      data: { session },
+    } = await supabase.auth.getSession();
 
-    if (user?.id) {
+    if (session?.user?.id) {
       dispatch(setAuth(true));
     }
 
-    setFetched(true);
-  };
-  const { setSearch } = ParamsController();
+    localStorage.setItem("token", session?.refresh_token || "");
 
-  useLayoutEffect(() => {
-    handleCheckUser();
-  });
+    dispatch(setFetched(true));
+  };
+
+  const { setSearch } = ParamsController();
 
   const [broadcastState, setBroadcastState] = useState<BroadcastObject>({
     isConnected: false,
@@ -55,6 +52,8 @@ function App() {
   });
 
   useEffect(() => {
+    handleCheckUser();
+
     broadcast.onmessage = (event) => {
       setBroadcastState(event.data);
     };

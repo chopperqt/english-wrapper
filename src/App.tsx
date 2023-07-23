@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes as AppRoutes, Route, useLocation } from "react-router-dom";
+import {
+  Routes as AppRoutes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { Spin } from "antd";
 
 import supabase from "./api";
 import { AppMenu } from "./components/menu";
-import { getRoutes } from "./routes";
+import { getRoutes, PathRoutes } from "./routes";
 import { ParamsController } from "./helpers/paramsController";
 import { RootState } from "./stores/store";
 import { setAuth, setFetched } from "./stores/user.slice";
+import { logout } from "./api/auth.api";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -24,6 +30,7 @@ interface BroadcastObject {
 
 function App() {
   const dispatch = useDispatch();
+  const navigage = useNavigate();
   const location = useLocation();
 
   const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
@@ -55,6 +62,14 @@ function App() {
     handleCheckUser();
 
     broadcast.onmessage = (event) => {
+      console.log("egnlish-wrapper-get-message", event.data);
+
+      if (event.data?.isLogout) {
+        logout();
+        navigage(PathRoutes.home);
+        dispatch(setAuth(false));
+      }
+
       setBroadcastState(event.data);
     };
   }, []);

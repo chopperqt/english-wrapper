@@ -24,7 +24,7 @@ const broadcast = new BroadcastChannel(KEY);
 
 interface BroadcastObject {
   isConnected: boolean;
-  search?: string;
+  page?: number;
   token?: string;
 }
 
@@ -51,11 +51,15 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { setSearch } = ParamsController();
+  const { setParam, getParam } = ParamsController();
+
+  const pageParam = getParam("page");
+
+  const page = pageParam || 1;
 
   const [broadcastState, setBroadcastState] = useState<BroadcastObject>({
     isConnected: false,
-    search: "",
+    page: +page,
   });
 
   useEffect(() => {
@@ -68,6 +72,8 @@ function App() {
         logout();
         navigage(PathRoutes.home);
         dispatch(setAuth(false));
+
+        return;
       }
 
       setBroadcastState(event.data);
@@ -84,6 +90,7 @@ function App() {
 
     broadcast.postMessage({
       sync: true,
+      page: +page,
       search: location.search,
     });
   }, [broadcastState.isConnected]);
@@ -92,12 +99,12 @@ function App() {
    * Обновляем URL основного приложения, если в iframe поменялся роут
    */
   useEffect(() => {
-    if (!broadcastState.search) {
+    if (!broadcastState.page) {
       return;
     }
 
-    setSearch(broadcastState.search);
-  }, [broadcastState.search]);
+    setParam("page", broadcastState.page.toString());
+  }, [broadcastState.page]);
 
   if (!isFetched) {
     return (

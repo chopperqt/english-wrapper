@@ -6,7 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { Spin } from "antd";
+import { Button, Layout, Spin } from "antd";
 
 import supabase from "./api";
 import { AppMenu } from "./components/menu";
@@ -15,6 +15,8 @@ import { ParamsController } from "./helpers/paramsController";
 import { RootState } from "./stores/store";
 import { setAuth, setFetched } from "./stores/user.slice";
 import { logout } from "./api/auth.api";
+import { Header } from "antd/es/layout/layout";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -32,6 +34,8 @@ function App() {
   const dispatch = useDispatch();
   const navigage = useNavigate();
   const location = useLocation();
+
+  const [isCollapsed, setCollapsed] = useState(false);
 
   const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
 
@@ -116,12 +120,27 @@ function App() {
 
   return (
     <div className="App flex h-screen">
-      {isAuth && <AppMenu />}
-      <AppRoutes>
-        {routes.map(({ path, element }, index) => {
-          return <Route key={index} path={path} element={element} />;
-        })}
-      </AppRoutes>
+      <Layout>
+        {isAuth && <AppMenu isCollapsed={isCollapsed} />}
+        <Layout>
+          <Header>
+            <Button
+              type="text"
+              icon={isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!isCollapsed)}
+              className="text-[16px] w-[64px] h-[64px] text-white"
+              style={{
+                color: "#fff",
+              }}
+            />
+          </Header>
+          <AppRoutes>
+            {routes.map(({ path, element }, index) => {
+              return <Route key={index} path={path} element={element} />;
+            })}
+          </AppRoutes>
+        </Layout>
+      </Layout>
     </div>
   );
 }

@@ -70,7 +70,7 @@ function App() {
     handleCheckUser();
 
     broadcast.onmessage = (event) => {
-      console.log("egnlish-wrapper-get-message", event.data);
+      console.log("get message from word-library", event.data);
 
       if (event.data?.isLogout) {
         logout();
@@ -93,9 +93,8 @@ function App() {
     }
 
     broadcast.postMessage({
-      sync: true,
+      isConnected: broadcastState.isConnected,
       page: +page,
-      search: location.search,
     });
   }, [broadcastState.isConnected]);
 
@@ -107,7 +106,9 @@ function App() {
       return;
     }
 
-    setParam("page", broadcastState.page.toString());
+    if (broadcastState.page > 1) {
+      setParam("page", broadcastState.page.toString());
+    }
   }, [broadcastState.page]);
 
   if (!isFetched) {
@@ -123,17 +124,21 @@ function App() {
       <Layout>
         {isAuth && <AppMenu isCollapsed={isCollapsed} />}
         <Layout>
-          <Header>
-            <Button
-              type="text"
-              icon={isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!isCollapsed)}
-              className="text-[16px] w-[64px] h-[64px] text-white"
-              style={{
-                color: "#fff",
-              }}
-            />
-          </Header>
+          {isAuth && (
+            <Header>
+              <Button
+                type="text"
+                icon={
+                  isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                }
+                onClick={() => setCollapsed(!isCollapsed)}
+                className="text-[16px] w-[64px] h-[64px] text-white"
+                style={{
+                  color: "#fff",
+                }}
+              />
+            </Header>
+          )}
           <AppRoutes>
             {routes.map(({ path, element }, index) => {
               return <Route key={index} path={path} element={element} />;

@@ -6,6 +6,8 @@ import { useMessage } from "../../../utils/use-message";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../../stores/user.slice";
 import supabase from "../../../api";
+import { Navigate, useNavigate } from "react-router-dom";
+import { PathRoutes } from "../../../routes";
 
 const SUCCESS_TEXT = "Logged success.";
 
@@ -20,6 +22,7 @@ interface LoginForm {
 
 export const useSignIn = ({ form }: UseSignInProps) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { contextHolder, handleShowSuccess } = useMessage();
 

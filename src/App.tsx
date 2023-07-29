@@ -17,6 +17,7 @@ import { setAuth, setFetched } from "./stores/user.slice";
 import { logout } from "./api/auth.api";
 import { Header } from "antd/es/layout/layout";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { useConnect } from "./utils/use-connect";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -33,7 +34,6 @@ interface BroadcastObject {
 function App() {
   const dispatch = useDispatch();
   const navigage = useNavigate();
-  const location = useLocation();
 
   const [isCollapsed, setCollapsed] = useState(false);
 
@@ -55,61 +55,30 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { setParam, getParam } = ParamsController();
+  const { getParam } = ParamsController();
 
   const pageParam = getParam("page");
 
   const page = pageParam || 1;
 
-  const [broadcastState, setBroadcastState] = useState<BroadcastObject>({
-    isConnected: false,
+  const { isLogout } = useConnect({
+    broadcast,
     page: +page,
   });
 
   useEffect(() => {
     handleCheckUser();
-
-    broadcast.onmessage = (event) => {
-      console.log("get message from word-library", event.data);
-
-      if (event.data?.isLogout) {
-        logout();
-        navigage(PathRoutes.home);
-        dispatch(setAuth(false));
-
-        return;
-      }
-
-      setBroadcastState(event.data);
-    };
   }, []);
 
-  /**
-   * Отслеживаем, подлюкчение к каналоу iframe
-   */
   useEffect(() => {
-    if (!broadcastState.isConnected) {
+    if (!isLogout) {
       return;
     }
 
-    broadcast.postMessage({
-      isConnected: broadcastState.isConnected,
-      page: +page,
-    });
-  }, [broadcastState.isConnected]);
-
-  /**
-   * Обновляем URL основного приложения, если в iframe поменялся роут
-   */
-  useEffect(() => {
-    if (!broadcastState.page) {
-      return;
-    }
-
-    if (broadcastState.page > 1) {
-      setParam("page", broadcastState.page.toString());
-    }
-  }, [broadcastState.page]);
+    logout();
+    navigage(PathRoutes.home);
+    dispatch(setAuth(false));
+  }, [isLogout]);
 
   if (!isFetched) {
     return (

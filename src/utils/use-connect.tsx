@@ -6,8 +6,8 @@ interface UseConnect {
 }
 
 export const useConnect = ({ broadcast, page }: UseConnect) => {
-  const [isConnected, setConnected] = useState(false);
-  const [isLogout, setLogout] = useState(false);
+  const [isConnected, setConnected] = useState(false); //NOTE: Отвечает, за установку соединения между обоими приложениями
+  const [isLogout, setLogout] = useState(false); //NOTE: Ответчает, за разголирование обоих приложение
 
   /*
    * Начинаем прослушивать канал.
@@ -42,4 +42,9 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
       page,
     });
   }, [isConnected]);
+
+  return {
+    isLogout,
+    isConnected,
+  };
 };

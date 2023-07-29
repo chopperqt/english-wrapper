@@ -55,7 +55,7 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { getParam } = ParamsController();
+  const { getParam, setParam } = ParamsController();
 
   const pageParam = getParam("page");
 

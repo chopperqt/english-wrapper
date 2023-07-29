@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ParamsController } from "../helpers/paramsController";
 
 interface UseConnect {
   broadcast: BroadcastChannel;
@@ -9,6 +10,8 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
   const [isConnected, setConnected] = useState(false); //NOTE: Отвечает, за установку соединения между обоими приложениями
   const [isLogout, setLogout] = useState(false); //NOTE: Ответчает, за разголирование обоих приложение
 
+  const { setParam } = ParamsController();
+
   /*
    * Начинаем прослушивать канал.
    */
@@ -16,14 +19,20 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
     broadcast.onmessage = (event) => {
       console.log("get message from word-library", event.data);
 
-      if (event.data?.isLogout) {
+      const { isLogout, isConnected, page } = event.data;
+
+      if (isLogout) {
         setLogout(true);
 
         return;
       }
 
-      if (event.data.isConnected) {
-        setConnected(event.data.isConnected);
+      if (isConnected) {
+        setConnected(isConnected);
+      }
+
+      if (page) {
+        setParam("page", page);
       }
 
       // setBroadcastState(event.data);
@@ -39,7 +48,7 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
     }
 
     broadcast.postMessage({
-      page,
+      initialPage: page,
     });
   }, [isConnected]);
 

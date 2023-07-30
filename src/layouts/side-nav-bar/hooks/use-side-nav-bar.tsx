@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { PathRoutes } from "../../../routes";
 
-export const useMenu = () => {
+export const useSideNavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 

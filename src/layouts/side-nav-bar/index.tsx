@@ -1,15 +1,17 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
+import { useSelector } from "react-redux";
 
+import { RootState } from "../../stores/store";
 import { MenuItems } from "./constants";
-import { useMenu } from "./hooks/use-menu";
+import { useSideNavBar } from "./hooks/use-side-nav-bar";
 
-interface Props {
-  isCollapsed: boolean;
-}
+export const SideNavBar = () => {
+  const isCollapsed = useSelector(
+    (state: RootState) => state.common.isCollapsed
+  );
 
-export const AppMenu = ({ isCollapsed = false }: Props) => {
-  const { defaultValue, handleClickItem } = useMenu();
+  const { defaultValue, handleClickItem } = useSideNavBar();
 
   return (
     <Sider className="h-screen" trigger={null} collapsed={isCollapsed}>

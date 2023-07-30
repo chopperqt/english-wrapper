@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Routes as AppRoutes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { Button, Layout, Spin } from "antd";
+import { Routes as AppRoutes, Route, useNavigate } from "react-router-dom";
+import { Layout, Spin } from "antd";
 
 import supabase from "./api";
-import { AppMenu } from "./components/menu";
+import { SideNavBar } from "./layouts/side-nav-bar";
 import { getRoutes, PathRoutes } from "./routes";
 import { ParamsController } from "./helpers/paramsController";
 import { RootState } from "./stores/store";
 import { setAuth, setFetched } from "./stores/user.slice";
 import { logout } from "./api/auth.api";
-import { Header } from "antd/es/layout/layout";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useConnect } from "./utils/use-connect";
+import { TopNavBar } from "./layouts/top-nav-bar";
 
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
@@ -25,17 +19,9 @@ const KEY =
 
 const broadcast = new BroadcastChannel(KEY);
 
-interface BroadcastObject {
-  isConnected: boolean;
-  page?: number;
-  token?: string;
-}
-
 function App() {
   const dispatch = useDispatch();
   const navigage = useNavigate();
-
-  const [isCollapsed, setCollapsed] = useState(false);
 
   const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
 
@@ -55,7 +41,7 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { getParam, setParam } = ParamsController();
+  const { getParam } = ParamsController();
 
   const pageParam = getParam("page");
 
@@ -91,23 +77,9 @@ function App() {
   return (
     <div className="App flex h-screen">
       <Layout>
-        {isAuth && <AppMenu isCollapsed={isCollapsed} />}
+        {isAuth && <SideNavBar />}
         <Layout>
-          {isAuth && (
-            <Header>
-              <Button
-                type="text"
-                icon={
-                  isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                }
-                onClick={() => setCollapsed(!isCollapsed)}
-                className="text-[16px] w-[64px] h-[64px] text-white"
-                style={{
-                  color: "#fff",
-                }}
-              />
-            </Header>
-          )}
+          {isAuth && <TopNavBar />}
           <AppRoutes>
             {routes.map(({ path, element }, index) => {
               return <Route key={index} path={path} element={element} />;

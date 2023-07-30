@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes as AppRoutes, Route, useNavigate } from "react-router-dom";
 import { Layout, Spin } from "antd";
@@ -25,7 +25,7 @@ function App() {
 
   const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
 
-  const routes = getRoutes(isAuth);
+  const routes = useMemo(() => getRoutes(isAuth), [isAuth]);
 
   const handleCheckUser = async () => {
     const {
@@ -73,6 +73,8 @@ function App() {
       </div>
     );
   }
+
+  console.log("isAuth", isAuth, routes);
 
   return (
     <div className="App flex h-screen">

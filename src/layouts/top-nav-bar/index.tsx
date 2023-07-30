@@ -1,5 +1,9 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Popover } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,16 +29,20 @@ export const TopNavBar = ({ }: TopNavBarProps) => {
   }
 
   return (
-    <Header>
+    <Header className="flex items-center justify-between">
       <Button
         type="text"
         icon={icon}
         onClick={() => dispatch(setCollapse(!isCollapsed))}
+        rootClassName="flex items-center"
         className="text-[16px] w-[64px] h-[64px] text-white"
         style={{
           color: "#fff",
         }}
       />
+      <Popover trigger="click">
+        <Avatar icon={<UserOutlined />} />
+      </Popover>
     </Header>
   );
 };

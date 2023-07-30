@@ -18,16 +18,16 @@ export const PrivateRoutes = [
     element: <Home />,
   },
   {
-    path: PathRoutes.login,
-    element: <Navigate to={PathRoutes.library} />,
-  },
-  {
     path: PathRoutes.repeater,
     element: <EnglishRepeater />,
   },
   {
     path: PathRoutes.library,
     element: <EnglishLibrary />,
+  },
+  {
+    path: PathRoutes.login,
+    element: <Navigate to={PathRoutes.library} />,
   },
 ];
 

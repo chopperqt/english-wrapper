@@ -17,8 +17,6 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
    */
   useEffect(() => {
     broadcast.onmessage = (event) => {
-      console.log("get message from word-library", event.data);
-
       const { isLogout, isConnected, page } = event.data;
 
       if (isLogout) {

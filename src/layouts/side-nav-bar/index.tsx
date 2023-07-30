@@ -11,7 +11,7 @@ export const SideNavBar = () => {
     (state: RootState) => state.common.isCollapsed
   );
 
-  const { defaultValue, handleClickItem } = useSideNavBar();
+  const { handleClickItem } = useSideNavBar();
 
   return (
     <Sider className="h-screen" trigger={null} collapsed={isCollapsed}>
@@ -19,7 +19,6 @@ export const SideNavBar = () => {
         theme="dark"
         onClick={(data) => handleClickItem(data.key)}
         items={MenuItems}
-        defaultSelectedKeys={[defaultValue]}
       />
     </Sider>
   );

@@ -3,11 +3,12 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Popover } from "antd";
+import { Avatar, Button, Dropdown } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setCollapse } from "../../stores/common.slice";
+import { dropdownItems } from "./constants";
 
 import type { RootState } from "../../stores/store";
 
@@ -40,9 +41,9 @@ export const TopNavBar = ({ }: TopNavBarProps) => {
           color: "#fff",
         }}
       />
-      <Popover trigger="click">
+      <Dropdown menu={{ items: dropdownItems }}>
         <Avatar icon={<UserOutlined />} />
-      </Popover>
+      </Dropdown>
     </Header>
   );
 };

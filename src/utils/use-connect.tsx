@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ParamsController } from "../helpers/paramsController";
 
 interface UseConnect {
@@ -7,6 +8,8 @@ interface UseConnect {
 }
 
 export const useConnect = ({ broadcast, page }: UseConnect) => {
+  const { pathname } = useLocation();
+
   const [isConnected, setConnected] = useState(false); //NOTE: Отвечает, за установку соединения между обоими приложениями
   const [isLogout, setLogout] = useState(false); //NOTE: Ответчает, за разголирование обоих приложение
 
@@ -25,9 +28,7 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
         return;
       }
 
-      if (isConnected) {
-        setConnected(isConnected);
-      }
+      setConnected(!!isConnected);
 
       if (page) {
         setParam("page", page);
@@ -49,6 +50,10 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
       initialPage: page,
     });
   }, [isConnected]);
+
+  useEffect(() => {
+    setConnected(false);
+  }, [pathname]);
 
   return {
     isLogout,

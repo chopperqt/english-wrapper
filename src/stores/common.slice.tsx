@@ -7,7 +7,7 @@ export interface CommonState {
 }
 
 const initialState: CommonState = {
-  isCollapsed: false,
+  isCollapsed: true,
 };
 
 export const commonSlice = createSlice({

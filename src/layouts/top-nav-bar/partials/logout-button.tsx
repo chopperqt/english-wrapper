@@ -1,3 +1,5 @@
+import { LogoutOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../api/auth.api";
 import { setAuth } from "../../../stores/user.slice";
@@ -11,5 +13,15 @@ export const LogoutButton = () => {
     dispatch(setAuth(false));
   };
 
-  return <button onClick={handleClickLogout}>Sign out</button>;
+  return (
+    <Button
+      className="flex items-center"
+      size="small"
+      icon={<LogoutOutlined />}
+      type="ghost"
+      onClick={handleClickLogout}
+    >
+      Sign out
+    </Button>
+  );
 };

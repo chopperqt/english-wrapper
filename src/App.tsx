@@ -37,6 +37,7 @@ function App() {
     }
 
     localStorage.setItem("token", session?.refresh_token || "");
+    localStorage.setItem("tokenA", session?.access_token || "");
 
     dispatch(setFetched(true));
   };
@@ -73,8 +74,6 @@ function App() {
       </div>
     );
   }
-
-  console.log("isAuth", isAuth, routes);
 
   return (
     <div className="App flex h-screen">

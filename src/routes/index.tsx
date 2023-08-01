@@ -15,7 +15,7 @@ export const PathRoutes = {
 export const PrivateRoutes = [
   {
     path: PathRoutes.home,
-    element: <Home />,
+    element: <Navigate to={PathRoutes.library} />,
   },
   {
     path: PathRoutes.repeater,
@@ -42,11 +42,11 @@ export const PublicRoutes = [
   },
   {
     path: PathRoutes.repeater,
-    element: <Navigate to={PathRoutes.home} />,
+    element: <Navigate to={PathRoutes.login} />,
   },
   {
     path: PathRoutes.library,
-    element: <Navigate to={PathRoutes.home} />,
+    element: <Navigate to={PathRoutes.login} />,
   },
 ];
 

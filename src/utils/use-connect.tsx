@@ -52,6 +52,7 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
   }, [isConnected]);
 
   useEffect(() => {
+    console.log("loacation ", pathname);
     setConnected(false);
   }, [pathname]);
 

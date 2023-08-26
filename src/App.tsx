@@ -1,7 +1,7 @@
+import { Layout, Spin } from "antd";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes as AppRoutes, Route, useNavigate } from "react-router-dom";
-import { Layout, Spin } from "antd";
 
 import supabase from "./api";
 import { SideNavBar } from "./layouts/side-nav-bar";
@@ -21,7 +21,7 @@ const broadcast = new BroadcastChannel(KEY);
 
 function App() {
   const dispatch = useDispatch();
-  const navigage = useNavigate();
+  const navigate = useNavigate();
 
   const { isAuth, isFetched } = useSelector((state: RootState) => state.user);
 
@@ -63,7 +63,7 @@ function App() {
     }
 
     logout();
-    navigage(PathRoutes.home);
+    navigate(PathRoutes.home);
     dispatch(setAuth(false));
   }, [isLogout]);
 

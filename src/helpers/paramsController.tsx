@@ -1,12 +1,19 @@
 import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+interface ParamsControllerOptions {
+  pathname?: string;
+}
+
 /**
  * Контроллер удаления, получения, добавления параметров в адресную строку
  */
-export function ParamsController() {
+export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+
+  const { pathname: locationPathname, search } = useLocation();
+
+  const currentPathname = locationPathname || pathname;
 
   const currentParams = new URLSearchParams(search);
 
@@ -18,7 +25,22 @@ export function ParamsController() {
   const setParam = (param: string, value: string) => {
     currentParams.set(param, value);
 
-    navigate(`${pathname}?${currentParams.toString()}`);
+    navigate(`${currentPathname}?${currentParams.toString()}`);
+  };
+
+  /**
+   * Событие устанавливает путь и параметры, в адресную строку
+   * @param pathname - Путь
+   * @param params - Параметры
+   */
+  const setPathname = (pathanem: string, params: { [key: string]: string }) => {
+    const normalizedParams = Object.entries(params);
+
+    normalizedParams.map(([key, value]) => {
+      currentParams.set(key, value);
+    });
+
+    navigate(`${pathanem}?${currentParams.toString()}`);
   };
 
   const setSearch = (params: string) => {
@@ -96,6 +118,7 @@ export function ParamsController() {
     setParam,
     setParams,
     setSearch,
+    setPathname,
     getParam,
     getAllParams,
     deleteParam,

@@ -1,5 +1,7 @@
 import supabase from ".";
 import { User } from "../models/user.model";
+import { store } from "../stores/store";
+import { setId } from "../stores/user.slice";
 
 export interface LoginData {
   login: string;
@@ -32,6 +34,8 @@ export const login = async ({
   }
 
   const { id, role, email, user_metadata } = user;
+
+  window.localStorage.setItem("userId", id);
 
   return {
     id,

@@ -1,31 +1,40 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { parse } from "valibot";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { StatisticsModel } from "../models/statistics.model";
-import { RootState } from "./store";
+import { StatisticsModel, StatisticsSchema } from "../models/statistics.model";
+
+import supabase from "../api";
+import { getPagination } from "../utils/get-pagination";
 
 export interface StatisticsState {
   statistics: StatisticsModel[];
 }
 
-const initialState: StatisticsState = {
-  statistics: [],
-};
+export const statisticsApi = createApi({
+  baseQuery: fetchBaseQuery(),
+  endpoints: (builder) => ({
+    getStatistics: builder.query({
+      queryFn: async ({ page = 1 }: { page: number }) => {
+        const userId = window.localStorage.getItem("userId");
 
-export const StatisticsSlice = createSlice({
-  name: "statistics",
-  initialState,
-  reducers: {
-    setStatistics: (state, action: PayloadAction<StatisticsModel[]>) => {
-      state.statistics = action.payload;
-    },
-  },
+        const { from, to } = getPagination(page, 30);
+
+        const { data, error, count } = await supabase
+          .from("statistic")
+          .select("*", { count: "exact" })
+          .range(from, to)
+          .match({ user_id: userId });
+
+        if (error) {
+          throw error;
+        }
+
+        const formattedData = data.map((item) => parse(StatisticsSchema, item));
+
+        return { data: { data: formattedData, count } };
+      },
+    }),
+  }),
 });
 
-export const getStatisticsSelector = createSelector(
-  (state: RootState) => state.statistics.statistics,
-  (statistics) => statistics
-);
-
-export const { setStatistics } = StatisticsSlice.actions;
-
-export default StatisticsSlice.reducer;
+export const { useGetStatisticsQuery } = statisticsApi;

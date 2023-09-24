@@ -1,23 +1,39 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { getStatistics } from "../../../api/statistics.api";
+import {
+  statisticsApi,
+  useGetStatisticsQuery,
+} from "../../../stores/statistics.slice";
 
 export const useStatistics = () => {
-  const [isLoading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  const handleGetData = async () => {
-    setLoading(true);
+  const [page, setPage] = useState(1);
 
-    await getStatistics();
+  const {
+    data: apiData,
+    isLoading,
+    isFetching,
+  } = useGetStatisticsQuery({
+    page,
+  });
 
-    setLoading(false);
+  const handleChangePage = (page: number) => {
+    setPage(page);
   };
 
   useEffect(() => {
-    handleGetData();
+    return () => {
+      dispatch(statisticsApi.util.resetApiState());
+    };
   }, []);
 
   return {
+    page,
+    apiData,
     isLoading,
+    isFetching,
+    handleChangePage,
   };
 };

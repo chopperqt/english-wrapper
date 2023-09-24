@@ -1,14 +1,14 @@
 import supabase from ".";
 import { parse } from "valibot";
-import { StatisticsSchema } from "../models/statistics.model";
+import { StatisticsModel, StatisticsSchema } from "../models/statistics.model";
 import { setStatistics } from "../stores/statistics.slice";
 import { store } from "../stores/store";
 
-export const getStatistics = async () => {
+export const getStatistics = async (): Promise<StatisticsModel[] | null> => {
   const userId = window.localStorage.getItem("userId");
 
   if (!userId) {
-    return;
+    return null;
   }
 
   try {
@@ -18,7 +18,7 @@ export const getStatistics = async () => {
       .match({ user_id: userId });
 
     if (!data) {
-      return;
+      return null;
     }
 
     const validateData = data.map((statistic) =>

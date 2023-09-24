@@ -9,11 +9,18 @@ import { useStatistics } from "./hooks/use-statistics";
 export const Statistics = () => {
   const statistics = useSelector(getStatisticsSelector);
 
-  useStatistics();
+  const { isLoading } = useStatistics();
 
   return (
-    <div>
-      <Table dataSource={statistics} columns={StatisticsColumns} />
+    <div className="m-[20px]">
+      <Table
+        loading={isLoading}
+        dataSource={statistics}
+        columns={StatisticsColumns}
+        pagination={{
+          position: ["bottomCenter"],
+        }}
+      />
     </div>
   );
 };

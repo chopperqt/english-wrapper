@@ -1,8 +1,17 @@
+import { format } from "date-fns";
 export const StatisticsColumns = [
   {
-    title: "id",
+    title: "ID",
     key: "id",
     dataIndex: "id",
+  },
+  {
+    title: "Дата и время прохождения теста",
+    key: "created_at",
+    dataIndex: "created_at",
+    render: (item: string) => (
+      <div>{format(new Date(item), "dd.MM.yyyy HH:mm")}</div>
+    ),
   },
   {
     title: "Верно",

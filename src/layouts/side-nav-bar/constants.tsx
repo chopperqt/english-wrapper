@@ -18,7 +18,7 @@ export const MenuItems = [
     icon: <RedoOutlined />,
   },
   {
-    key: "/statistics",
+    key: PathRoutes.statistics,
     label: "Statistics",
     icon: <BarChartOutlined />,
   },

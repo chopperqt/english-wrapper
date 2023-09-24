@@ -10,17 +10,23 @@ interface UseConnect {
 export const useConnect = ({ broadcast, page }: UseConnect) => {
   const { pathname } = useLocation();
 
-  const [isConnected, setConnected] = useState(false); //NOTE: Отвечает, за установку соединения между обоими приложениями
-  const [isLogout, setLogout] = useState(false); //NOTE: Ответчает, за разголирование обоих приложение
+  const { setPathname } = ParamsController({});
 
-  const { setParam } = ParamsController();
+  /**
+   * NOTE: Отвечает за установку соединения между приложением
+   */
+  const [isConnected, setConnected] = useState(false);
+  /**
+   * NOTE: Статус разлогирования приложений
+   */
+  const [isLogout, setLogout] = useState(false);
 
   /*
    * Начинаем прослушивать канал.
    */
   useEffect(() => {
     broadcast.onmessage = (event) => {
-      const { isLogout, isConnected, page } = event.data;
+      const { isLogout, isConnected, page, pathname } = event.data;
 
       if (isLogout) {
         setLogout(true);
@@ -31,10 +37,8 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
       setConnected(!!isConnected);
 
       if (page) {
-        setParam("page", page);
+        setPathname(pathname, { page });
       }
-
-      // setBroadcastState(event.data);
     };
   }, []);
 
@@ -52,9 +56,10 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
   }, [isConnected]);
 
   useEffect(() => {
-    console.log("loacation ", pathname);
     setConnected(false);
   }, [pathname]);
+
+  console.log("location ", pathname);
 
   return {
     isLogout,

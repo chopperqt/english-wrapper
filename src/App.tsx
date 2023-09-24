@@ -42,7 +42,7 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { getParam } = ParamsController();
+  const { getParam } = ParamsController({});
 
   const pageParam = getParam("page");
 

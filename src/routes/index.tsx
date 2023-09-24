@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { EnglishLibrary } from "../components/english-library";
 import { EnglishRepeater } from "../components/english-repeater";
+import { Statistics } from "../pages/statistics";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
@@ -10,6 +11,7 @@ export const PathRoutes = {
   login: "/login",
   library: "/app-library",
   repeater: "/app-repeater",
+  statistics: "/statistics",
 };
 
 export const PrivateRoutes = [
@@ -29,6 +31,10 @@ export const PrivateRoutes = [
     path: PathRoutes.login,
     element: <Navigate to={PathRoutes.library} />,
   },
+  {
+    path: PathRoutes.statistics,
+    element: <Statistics />,
+  },
 ];
 
 export const PublicRoutes = [
@@ -46,6 +52,10 @@ export const PublicRoutes = [
   },
   {
     path: PathRoutes.library,
+    element: <Navigate to={PathRoutes.login} />,
+  },
+  {
+    path: PathRoutes.statistics,
     element: <Navigate to={PathRoutes.login} />,
   },
 ];

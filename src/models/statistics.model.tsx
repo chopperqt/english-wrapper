@@ -10,4 +10,11 @@ export const StatisticsSchema = object({
   user_id: string(),
 });
 
+export const StatisticSchema = object({
+  word: string(),
+  translate: string(),
+  enteredWord: string(),
+})
+
 export type StatisticsModel = Output<typeof StatisticsSchema>;
+export type StatisticModel = Output<typeof StatisticSchema>;

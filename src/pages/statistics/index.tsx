@@ -1,25 +1,18 @@
-import { Table } from "antd";
+import StatisticsApp from "remoteApp/App";
 
-import { StatisticsColumns } from "./constants";
-import { useStatistics } from "./hooks/use-statistics";
+import { useStatistics } from './hooks/use-statistics'
 
 export const Statistics = () => {
-  const { apiData, isLoading, isFetching, page, handleChangePage } =
-    useStatistics();
+  const {
+    apiData,
+    isLoading,
+  } = useStatistics()
 
   return (
     <div className="m-[20px]">
-      <Table
-        loading={isLoading || isFetching}
-        dataSource={apiData?.data}
-        columns={StatisticsColumns}
-        pagination={{
-          total: apiData?.count || 1,
-          pageSize: 30,
-          current: page,
-          position: ["bottomCenter"],
-          onChange: handleChangePage,
-        }}
+      <StatisticsApp
+        isLoading={isLoading}
+        data={apiData}
       />
     </div>
   );

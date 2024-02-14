@@ -1,18 +1,18 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
   statisticsApi,
   useGetStatisticsQuery,
 } from "../../../stores/statistics.slice";
+import { ParamsController } from "../../../utils/params-controller";
 
 export const useStatistics = () => {
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(1);
+  const { getParam } = ParamsController();
+
+  const page = +getParam("page") || 1;
 
   const {
     data: apiData,
@@ -22,10 +22,6 @@ export const useStatistics = () => {
     page,
   });
 
-  const handleChangePage = (page: number) => {
-    setPage(page);
-  };
-
   useEffect(() => {
     return () => {
       dispatch(statisticsApi.util.resetApiState());
@@ -33,10 +29,8 @@ export const useStatistics = () => {
   }, []);
 
   return {
-    page,
     apiData,
     isLoading,
     isFetching,
-    handleChangePage,
   };
 };

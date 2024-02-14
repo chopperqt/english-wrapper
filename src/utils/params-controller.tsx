@@ -1,19 +1,12 @@
 import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-interface ParamsControllerOptions {
-  pathname?: string;
-}
-
 /**
  * Контроллер удаления, получения, добавления параметров в адресную строку
  */
-export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
+export function ParamsController() {
   const navigate = useNavigate();
-
-  const { pathname: locationPathname, search } = useLocation();
-
-  const currentPathname = locationPathname || pathname;
+  const { pathname, search } = useLocation();
 
   const currentParams = new URLSearchParams(search);
 
@@ -25,26 +18,7 @@ export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
   const setParam = (param: string, value: string) => {
     currentParams.set(param, value);
 
-    navigate(`${currentPathname}?${currentParams.toString()}`);
-  };
-
-  /**
-   * Событие устанавливает путь и параметры, в адресную строку
-   * @param pathname - Путь
-   * @param params - Параметры
-   */
-  const setPathname = (pathanem: string, params: { [key: string]: string }) => {
-    const normalizedParams = Object.entries(params);
-
-    normalizedParams.map(([key, value]) => {
-      currentParams.set(key, value);
-    });
-
-    navigate(`${pathanem}?${currentParams.toString()}`);
-  };
-
-  const setSearch = (params: string) => {
-    navigate(`${pathname}${params}`);
+    navigate(`${pathname}?${currentParams.toString()}`);
   };
 
   /**
@@ -69,7 +43,7 @@ export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
     const foundParam = currentParams.get(param);
 
     if (foundParam === null) {
-      return;
+      return "";
     }
 
     return foundParam;
@@ -79,7 +53,7 @@ export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
    * Событие получения всех параметров из адресной строки
    */
   const getAllParams = useCallback(() => {
-    let allParams = {};
+    let allParams: { [key: string]: string } = {};
 
     currentParams.forEach((value, key) => {
       allParams = {
@@ -117,8 +91,6 @@ export function ParamsController({ pathname = "" }: ParamsControllerOptions) {
     params: search,
     setParam,
     setParams,
-    setSearch,
-    setPathname,
     getParam,
     getAllParams,
     deleteParam,

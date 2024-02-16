@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ParamsController } from "../helpers/paramsController";
+import { ParamsController } from "../utils/params-controller";
 
 interface UseConnect {
   broadcast: BroadcastChannel;
@@ -10,7 +10,7 @@ interface UseConnect {
 export const useConnect = ({ broadcast, page }: UseConnect) => {
   const { pathname } = useLocation();
 
-  const { setPathname } = ParamsController({});
+  // const { setPathname } = ParamsController();
 
   /**
    * NOTE: Отвечает за установку соединения между приложением
@@ -36,9 +36,9 @@ export const useConnect = ({ broadcast, page }: UseConnect) => {
 
       setConnected(!!isConnected);
 
-      if (page) {
-        setPathname(pathname, { page });
-      }
+      // if (page) {
+      //   setPathname(pathname, { page });
+      // }
     };
   }, []);
 

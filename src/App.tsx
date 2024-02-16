@@ -6,7 +6,7 @@ import { Routes as AppRoutes, Route, useNavigate } from "react-router-dom";
 import supabase from "./api";
 import { SideNavBar } from "./layouts/side-nav-bar";
 import { getRoutes, PathRoutes } from "./routes";
-import { ParamsController } from "./helpers/paramsController";
+import { ParamsController } from "./utils/params-controller";
 import { RootState } from "./stores/store";
 import { setAuth, setFetched } from "./stores/user.slice";
 import { logout } from "./api/auth.api";
@@ -42,7 +42,7 @@ function App() {
     dispatch(setFetched(true));
   };
 
-  const { getParam } = ParamsController({});
+  const { getParam } = ParamsController();
 
   const pageParam = getParam("page");
 

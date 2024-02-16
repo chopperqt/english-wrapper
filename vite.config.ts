@@ -11,7 +11,7 @@ export default defineConfig({
       remotes: {
         remoteApp: "http://192.168.100.107:5004/assets/remoteEntry.js",
       },
-      shared: ["react", "react-dom", "antd", "react-redux"],
+      shared: ["react", "react-dom", "antd", "react-redux", "react-router-dom"],
     }),
   ],
   optimizeDeps: {

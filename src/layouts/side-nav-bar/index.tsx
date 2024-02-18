@@ -14,7 +14,11 @@ export const SideNavBar = () => {
   const { handleClickItem } = useSideNavBar();
 
   return (
-    <Sider className="h-screen" trigger={null} collapsed={isCollapsed}>
+    <Sider
+      className="min-h-screen"
+      trigger={null}
+      collapsed={isCollapsed}
+    >
       <Menu
         theme="dark"
         onClick={(data) => handleClickItem(data.key)}

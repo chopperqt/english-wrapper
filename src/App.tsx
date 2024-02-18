@@ -13,6 +13,7 @@ import { logout } from "./api/auth.api";
 import { useConnect } from "./utils/use-connect";
 import { TopNavBar } from "./layouts/top-nav-bar";
 
+
 const KEY =
   import.meta.env.VITE_BROADCAST_TOKEN ||
   "1486d598-a83c-4b1c-8e5a-109de3ac586e";
@@ -76,7 +77,7 @@ function App() {
   }
 
   return (
-    <div className="App flex h-screen">
+    <div className="App flex min-h-screen">
       <Layout>
         {isAuth && <SideNavBar />}
         <Layout>

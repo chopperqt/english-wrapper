@@ -14,13 +14,13 @@ export const useStatistics = () => {
 
   const page = +getParam("page") || 1;
 
-  const {
-    data: apiData,
-    isLoading,
-    isFetching,
-  } = useGetStatisticsQuery({
-    page,
-  });
+  // const {
+  //   data: apiData,
+  //   isLoading,
+  //   isFetching,
+  // } = useGetStatisticsQuery({
+  //   page,
+  // });
 
   useEffect(() => {
     return () => {
@@ -29,8 +29,8 @@ export const useStatistics = () => {
   }, []);
 
   return {
-    apiData,
-    isLoading,
-    isFetching,
+    // apiData,
+    // isLoading,
+    // isFetching,
   };
 };

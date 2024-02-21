@@ -1,7 +1,5 @@
 import supabase from ".";
 import { User } from "../models/user.model";
-import { store } from "../stores/store";
-import { setId } from "../stores/user.slice";
 
 export interface LoginData {
   login: string;

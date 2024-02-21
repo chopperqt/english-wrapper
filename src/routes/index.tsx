@@ -3,8 +3,8 @@ import { EnglishLibrary } from "../components/english-library";
 import { EnglishRepeater } from "../components/english-repeater";
 import { Statistics } from "../pages/statistics";
 
-import Home from "../pages/home";
-import Login from "../pages/login";
+import Home from "@pages/home";
+import Login from "@pages/login";
 
 export const PathRoutes = {
   home: "/",

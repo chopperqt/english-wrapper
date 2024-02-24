@@ -16,7 +16,8 @@ export default defineConfig({
     federation({
       name: "host-app",
       remotes: {
-        remoteApp: "http://192.168.100.107:5004/assets/remoteEntry.js",
+        StatisticsApp: "http://192.168.100.107:5004/assets/remoteEntry.js",
+        RepeaterApp: "http://192.168.100.107:5006/assets/remote2Entry.js",
       },
       shared: ["react", "react-dom", "antd", "react-redux", "react-router-dom"],
     }),

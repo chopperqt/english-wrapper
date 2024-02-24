@@ -1,3 +1,13 @@
+import { Suspense, lazy } from "react";
+
+const RepeaterApp = lazy(() => import("RepeaterApp/Home"))
+
 export const EnglishRepeater = () => {
-	return <iframe src="/repeater" className="w-full h-screen"></iframe>;
+	return (
+		<div>
+			<Suspense>
+				<RepeaterApp />
+			</Suspense>
+		</div>
+	);
 };

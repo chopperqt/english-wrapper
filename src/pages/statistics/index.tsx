@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
-import { api } from "@api";
+import { api } from "@api/index";
 
-const StatisticsApp = React.lazy(() => import("remoteApp/Home"));
+const StatisticsApp = React.lazy(() => import("StatisticsApp/Home"));
 
 export const Statistics = () => (
   <div className="m-[20px]">

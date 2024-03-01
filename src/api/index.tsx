@@ -1,7 +1,8 @@
 import {
   createApi,
   fetchBaseQuery,
-} from "@reduxjs/toolkit/dist/query/react";
+} from "@reduxjs/toolkit/query/react";
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

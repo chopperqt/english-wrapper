@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineSlices } from "@reduxjs/toolkit";
 
 import userReducer from "./user.slice";
 import commonReducer from "./common.slice";
@@ -6,13 +6,15 @@ import settingsReducer from './settings.slice'
 
 import { api } from "@api/index";
 
+export const rootReducer = combineSlices({
+  user: userReducer,
+  common: commonReducer,
+  // settings: settingsReducer,
+  [api.reducerPath]: api.reducer,
+})
+
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    common: commonReducer,
-    settings: settingsReducer,
-    [api.reducerPath]: api.reducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
 });

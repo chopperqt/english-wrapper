@@ -1,13 +1,10 @@
 import {
   createSlice,
   createSelector,
+  ActionCreatorWithPayload,
 } from "@reduxjs/toolkit";
 
-import {
-  WordsForm,
-  WordsValues,
-  ModeForm,
-} from "../models/words.model";
+import { WordsForm, WordsValues, ModeForm } from "../models/words.model";
 
 import { RootState } from "./store";
 

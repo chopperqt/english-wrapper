@@ -1,8 +1,11 @@
-import { configureStore, combineSlices } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineSlices,
+} from "@reduxjs/toolkit";
 
 import userReducer from "./user.slice";
 import commonReducer from "./common.slice";
-import settingsReducer from './settings.slice'
+// import settingsReducer from './settings.slice'
 
 import { api } from "@api/index";
 

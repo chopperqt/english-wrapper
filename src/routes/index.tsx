@@ -1,16 +1,17 @@
 import { Navigate } from "react-router-dom";
+
 import { EnglishLibrary } from "../components/english-library";
-import { EnglishRepeater } from "../components/english-repeater";
 import { Statistics } from "../pages/statistics";
 
 import Home from "@pages/home";
 import Login from "@pages/login";
+import Repeater from "@pages/repeater";
 
 export const PathRoutes = {
   home: "/",
   login: "/login",
   library: "/app-library",
-  repeater: "/app-repeater",
+  repeater: "/repeater",
   statistics: "/statistics",
 };
 
@@ -21,7 +22,7 @@ export const PrivateRoutes = [
   },
   {
     path: PathRoutes.repeater,
-    element: <EnglishRepeater />,
+    element: <Repeater />,
   },
   {
     path: PathRoutes.library,

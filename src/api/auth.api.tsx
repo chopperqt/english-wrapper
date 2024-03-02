@@ -1,4 +1,5 @@
 import supabase from ".";
+
 import { User } from "../models/user.model";
 
 export interface LoginData {
@@ -44,5 +45,7 @@ export const login = async ({
 };
 
 export const logout = async () => {
+  window.localStorage.removeItem("userId")
+
   await supabase.auth.signOut();
 };

@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setId: (state, actions: PayloadAction<string>) => {
+    setUserId: (state, actions: PayloadAction<string>) => {
       state.id = actions.payload;
     },
     setAuth: (state, actions: PayloadAction<boolean>) => {
@@ -30,6 +30,10 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setId, setAuth, setFetched } = userSlice.actions;
+export const {
+  setUserId,
+  setAuth,
+  setFetched,
+} = userSlice.actions;
 
 export default userSlice.reducer;

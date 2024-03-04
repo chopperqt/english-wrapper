@@ -1,12 +1,11 @@
-const docker = "docker compose up -d";
-const englishWrapper = "(npm run dev -- --host&)";
-const englishLibrary = "cd .. && cd word-library && (npm run start&)";
-const englishRepeater = "cd .. && cd english-repeater && npm run start";
+// const docker = "docker compose up -d";
+// const englishLibrary = "cd .. && cd word-library && (npm run start&)";
+const englishWrapper = "(npm run dev&)";
+const englishRepeater = "cd .. && cd english-repeater && (npm run serve&) && (npm run build&)";
 
 const spawn = require("child_process").spawn;
 
-const child = spawn(
-  `${docker} && ${englishWrapper} && ${englishLibrary} && ${englishRepeater}`,
+const child = spawn(`${englishWrapper} && ${englishRepeater}`,
   {
     shell: true,
   }

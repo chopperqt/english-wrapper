@@ -3,6 +3,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from 'path'
 
+const DEFAULT_URL = 'http://192.168.100.107'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -16,8 +18,8 @@ export default defineConfig({
     federation({
       name: "host-app",
       remotes: {
-        StatisticsApp: "http://192.168.1.75:5004/assets/remoteEntry.js",
-        RepeaterApp: "http://192.168.1.75:5006/assets/remote2Entry.js",
+        StatisticsApp: `${DEFAULT_URL}:5004/assets/remoteEntry.js`,
+        RepeaterApp: `${DEFAULT_URL}:5006/assets/remote2Entry.js`,
       },
       shared: ["react", "react-dom", "antd", "react-redux", "react-router-dom"],
     }),

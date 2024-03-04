@@ -1,5 +1,5 @@
 export const EnglishLibrary = () => {
 	return (
-		<iframe src="/library" className="w-full h-screen" />
+		<div>Раздел временно не работает. Но он скоро снова заработает.</div>
 	);
 }

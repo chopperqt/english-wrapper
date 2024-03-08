@@ -41,7 +41,10 @@ export const TopNavBar = ({ }: TopNavBarProps) => {
           color: "#fff",
         }}
       />
-      <Dropdown trigger={["click"]} menu={{ items: dropdownItems }}>
+      <Dropdown
+        trigger={["click"]}
+        menu={{ items: dropdownItems }}
+      >
         <Avatar icon={<UserOutlined />} />
       </Dropdown>
     </Header>

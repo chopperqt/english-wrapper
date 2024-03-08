@@ -9,17 +9,17 @@ import { PathRoutes } from "../../routes";
 export const MenuItems = [
   {
     key: PathRoutes.library,
-    label: "Library",
+    label: "Словарь",
     icon: <BookOutlined />,
   },
   {
     key: PathRoutes.repeater,
-    label: "Repeater",
+    label: "Повторитель",
     icon: <RedoOutlined />,
   },
   {
     key: PathRoutes.statistics,
-    label: "Statistics",
+    label: "Статистика",
     icon: <BarChartOutlined />,
   },
 ];

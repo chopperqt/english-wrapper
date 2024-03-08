@@ -1,9 +1,9 @@
 import federation from "@originjs/vite-plugin-federation";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import path from 'path'
+import path from "path";
 
-const DEFAULT_URL = 'http://192.168.100.107'
+const DEFAULT_URL = "http://192.168.1.146";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,9 +26,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@api': path.resolve(__dirname, './src/api'),
-      '@stores': path.resolve(__dirname, './src/stores'),
+      "@pages": path.resolve(__dirname, "./src/pages"),
+      "@api": path.resolve(__dirname, "./src/api"),
+      "@stores": path.resolve(__dirname, "./src/stores"),
     },
   },
   optimizeDeps: {

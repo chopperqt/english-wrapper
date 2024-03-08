@@ -1,8 +1,11 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
+
 import { logout } from "../../../api/auth.api";
 import { setAuth } from "../../../stores/user.slice";
+
+const LOGOUT_TEXT = 'Выход'
 
 export const LogoutButton = () => {
   const dispatch = useDispatch();
@@ -21,7 +24,7 @@ export const LogoutButton = () => {
       type="ghost"
       onClick={handleClickLogout}
     >
-      Sign out
+      {LOGOUT_TEXT}
     </Button>
   );
 };

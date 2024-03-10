@@ -20,6 +20,7 @@ export default defineConfig({
       remotes: {
         StatisticsApp: `${DEFAULT_URL}:5004/assets/remoteEntry.js`,
         RepeaterApp: `${DEFAULT_URL}:5006/assets/remote2Entry.js`,
+        LibraryApp: `${DEFAULT_URL}:5007/assets/remote3Entry.js`,
       },
       shared: ["react", "react-dom", "antd", "react-redux", "react-router-dom"],
     }),

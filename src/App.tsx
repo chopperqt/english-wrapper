@@ -1,14 +1,33 @@
-import { Layout, Spin } from "antd";
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes as AppRoutes, Route, useNavigate } from "react-router-dom";
+import {
+  Layout,
+  Spin,
+} from "antd";
+import {
+  useEffect,
+  useMemo,
+} from "react";
+import {
+  useDispatch,
+  useSelector,
+} from "react-redux";
+import {
+  Routes as AppRoutes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 
 import supabase from "./api";
 import { SideNavBar } from "./layouts/side-nav-bar";
-import { getRoutes, PathRoutes } from "./routes";
+import {
+  getRoutes,
+  PathRoutes,
+} from "./routes";
 import { ParamsController } from "./utils/params-controller";
 import { RootState } from "./stores/store";
-import { setAuth, setFetched } from "./stores/user.slice";
+import {
+  setAuth,
+  setFetched,
+} from "./stores/user.slice";
 import { logout } from "./api/auth.api";
 import { useConnect } from "./utils/use-connect";
 import { TopNavBar } from "./layouts/top-nav-bar";

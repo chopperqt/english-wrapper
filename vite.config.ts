@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-const DEFAULT_URL = "http://192.168.1.146";
+const DEFAULT_URL = "http://192.168.1.85";
 
 // https://vitejs.dev/config/
 export default defineConfig({
